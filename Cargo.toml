@@ -1,8 +1,17 @@
 [package]
-name = "ethereal-mail-test-account"
-version = "0.1.0"
+name = "mail-test-account"
+description = "creates/loads/stores a mail account for testing purpose :(currently using ethereal.mail)"
+keywords = ["mail", "test", "ethereal.mail"]
+version = "0.1.1"
 authors = ["Philipp Korber <p.korber@1aim.com>"]
 edition = "2018"
+readme = "./README.md"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/1aim/mail-test-account"
+
+[[bin]]
+name = "test-account"
+required-features = [ "clap" ]
 
 [dependencies]
 xdg = "2.2.0"
@@ -11,3 +20,4 @@ serde = { version="1.0.89", features=["derive"] }
 serde_json = "1.0.39"
 failure = "0.1.5"
 log = "0.4.6"
+clap = { version="2.32.0", optional=true }

@@ -11,6 +11,7 @@ use crate::types::*;
 
 const NODEMAILER_NEW_USER_ENDPOINT: &str = "https://api.nodemailer.com/user";
 
+/// Crate a new `ethereal.mail` accounts returning it's account and service info.
 pub fn create_new_ethereal_account() -> Result<AccountAndServiceInfo, Error> {
     let response: EtherealAccountResponse = Client::new()
         .post(NODEMAILER_NEW_USER_ENDPOINT)

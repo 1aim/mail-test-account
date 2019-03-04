@@ -11,6 +11,20 @@ use xdg::BaseDirectories;
 
 use crate::types::AccountAndServiceInfo;
 
+/// Stores given [`AccountAndServiceInfo`] instance as json in the config dir.
+///
+/// The config dir is the dir defined through the xdg directory spec (i.e. it can
+/// be influenced by environment variables). The default is:
+/// `~/.config/ethereal-mail-test-account/<tag>.json` (replacing `<tag>` with the
+/// tag).
+///
+/// # Error
+///
+/// This can fail for a number of reasons:
+///
+/// 1. The tag does not match `[a-Z0-9_-]+`.
+/// 2. Getting config file path fails for one reason or another.
+/// 3. Writing to the config file path fails.
 pub fn store_account_info(tag: &str, info: &AccountAndServiceInfo) -> Result<(), Error> {
     let file_name = create_file_name(tag)?;
 
@@ -20,6 +34,24 @@ pub fn store_account_info(tag: &str, info: &AccountAndServiceInfo) -> Result<(),
     Ok(())
 }
 
+/// Loads a [`AccountAndServiceInfo`] instance from a json file from the config dir.
+///
+/// The config dir is the dir defined through the xdg directory spec (i.e. it can
+/// be influenced by environment variables). The default is:
+/// `~/.config/ethereal-mail-test-account/<tag>.json` (replacing `<tag>` with the
+/// tag).
+///
+/// If no config file is found `Ok(None)` is returned.
+///
+/// # Error
+///
+/// This can fail for a number of reasons:
+///
+/// 1. The tag does not match `[a-Z0-9_-]+`.
+/// 2. Getting config file path fails for one reason or another.
+/// 3. Reading the config file path fails (but the path does exist,
+///    else it would have returned `Ok(None)`).
+///
 pub fn load_account_info(tag: &str) -> Result<Option<AccountAndServiceInfo>, Error> {
     let file_name = create_file_name(tag)?;
 
